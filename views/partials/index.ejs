@@ -1,0 +1,29 @@
+<%- include('header.ejs') %>
+
+<h1>Welcome to the Blog Web App</h1>
+
+<h2>Create New Post</h2>
+<form action="/add-post" method="POST">
+    <input type="text" name="title" placeholder="Post Title" required><br>
+    <textarea name="content" placeholder="Post Content" required></textarea><br>
+    <button type="submit">Add Post</button>
+</form>
+
+<h2>All Posts</h2>
+<ul>
+    <% for (let i = 0; i < posts.length; i++) { %>
+        <div class="post-card">
+            <h3><%= posts[i].title %></h3>
+            <p><%= posts[i].content %></p>
+            <form action="/delete/<%= i %>" method="POST" onsubmit="return confirm('Delete this post?');">
+                <button type="submit" class="delete-button">Delete</button>
+            </form>
+        </div>
+    <% } %>
+
+    <% if (posts.length === 0) { %>
+        <p>No posts available.</p>
+    <% } %>
+
+</ul>
+<%- include('footer.ejs') %>
